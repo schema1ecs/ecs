@@ -16,9 +16,11 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 SchemaONE extends the ECS host field set in several ways:
 
-The SchemaONE host field set supports additional host bios fields./n
-The SchemaONE host field set supports additional host cpu fields./n
-The SchemaONE host field set supports additional fields describing a supplemental details that the host can generate./n
+- The SchemaONE host field set supports additional host bios fields.
+
+- The SchemaONE host field set supports additional host cpu fields.
+
+- The SchemaONE host field set supports additional fields describing a supplemental details that the host can generate.
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
