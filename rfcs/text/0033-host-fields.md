@@ -37,7 +37,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 -->
 Field Name | Special Instructions | Justification/Use Case
 | :--: | :-- | :-- |
-| memory | Extract text following ":" from "Computer Memory : 195073 MB" <br><br> The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br>| Detects specific baselines of physical configuration for asset management.
+| memory | Extract text following ":" from "Computer Memory : 195073 MB" <br><br> The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br> <table>  <thead>  <tr>  <th>Unit</th>  <th>Multiplication Factor</th>  </tr>  </thead>  <tbody>  <tr>  <td>B</td>  <td><code>(2^0)    1</code></td>  </tr>  <tr>  <td>KB</td>  <td><code>(2^10)  1024</code></td> </tr>  <tr>  <td>MB</td>  <td><code>(2^20)  1,048,576</code></td> </tr>  <tr>  <td>GB</td>  <td><code>(2^30)  1,073,741,824</code></td>  </tr>  <tr>  <td>TB</td>  <td><code>(2^40)  1,099,511,627,776</code></td>  </tr>   </tbody>  </table>     | Detects specific baselines of physical configuration for asset management.
 | last_logon.time | N/A | Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.|
 | created | N/A | Indicates that device is known to domain.|
 | distinguished_name | N/A | The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.|
