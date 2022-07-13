@@ -34,6 +34,35 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+Field Set | Field Definition | Special Instructions | Justification/Use Case
+-- | --------------------------- | -- | --
+Host | name: memory <n-- level: custom
+
+type: unsigned long
+
+description: Physical memory of the host machine in bytes.
+
+example: 17,179,869,184 | Extract text following ":" from "Computer Memory : 195073 MB"
+
+The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. 
+
+Normalize to byte value by multiplying base value by unit type as follows 
+
+
+
+B	(2^0)    1
+KB	(2^10)  1024
+MB	(2^20)  1,048,576
+GB	(2^30)  1,073,741,824
+TB	(2^40)  1,099,511,627,776
+ | Detects specific baselines of physical configuration for asset management.
+
+ | Can be used to indicate the risk associated with a particular host
+risk.calculated_score_norm | float | 88.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100 | Can be used to indicate the risk associated with a particular host
+risk.static_score | float | 830.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+risk.static_score_norm | float | 83.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100 | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
+risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
