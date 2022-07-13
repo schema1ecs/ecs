@@ -28,12 +28,35 @@ Stage 1: If the changes include field additions or modifications, please create 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
 -->
-
 ## Fields
+<details><summary>Defintion</summary>
+<p>
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+Field Name | Special Instructions | Justification/Use Case
+| :--: | :-- | :-- |
+| memory | Extract text following ":" from "Computer Memory : 195073 MB" <br><br> The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br>| Detects specific baselines of physical configuration for asset management.
+| last_logon.time | N/A | Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.|
+| created | N/A | Indicates that device is known to domain.|
+| distinguished_name | N/A | The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.|
+| modified | N/A | Indicates when information has changed for the host in a directory service.|
+| bios.manufacturer | Normalization: lower case | This is a string representing the system manufacturer of the host. Useful for supply chain issue detection.|
+| bios.release_date | This date will need to be converted to a ECS date format. | The bios release date. Useful for supply chain issue detection.|
+| bios.secure_boot_enabled | If disabled set to false; if enabled set to true. | Used to detect misconfiguration in Secure Boot.|
+| bios.uuid | N/A | A unique identifier assigned to the computer mother board.|
+| bios.version | N/A | Version of the BIOS, this string is created by the BIOS manufacturer. Useful for supply chain issue detection.|
+| cpu.architecture | Normalize these entries to the following format:<br><instruction_bits>:<raw_string><br>"x64: x64-based PC"<br>"x64: x86_64"<br>"x32: x86-based PC" | Detects out of date CPUs.|
+| cpu.core.count | N/A | Detects specific baselines of physical configuration for asset management.| 
+| cpu.count | N/A | Detects specific baselines of physical configuration for asset management.|
+| cpu.logical_processor.count | N/A | Detects specific baselines of physical configuration for asset management.|
+| cpu.manufacturer | Note that a manufacturer is displayed for each CPU, select the first. Multiple manufacturers are not expected. | Useful for supply chain issue detection.|
+| cpu.name | Normalize raw field into lowercase format for easier query | Useful for supply chain issue detection.|
+| cpu.speed | Normalize to GHZ, do not round but use 0.28 etc, where required. Store alternative values as shown below<br>null = -1.0<br>blank = -2.0 | Detects specific baselines of physical configuration for asset management.|
+ </p>
+ </details>
+
     - name: memory
       level: custom
       type: unsigned long
