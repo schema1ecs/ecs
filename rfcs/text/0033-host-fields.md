@@ -34,35 +34,120 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
-Field Set | Field Definition | Special Instructions | Justification/Use Case
--- | --------------------------- | -- | --
-Host | name: memory <n-- level: custom
+    - name: memory
+      level: custom
+      type: unsigned long
+      example: 17,179,869,184
+      description: >
+        Physical memory of the host machine in bytes.
+        
+    - name: last_logon.time
+      level: custom
+      type: date
+      description: >
+        The time of the last user logon to the host. The timestamp type represents date and time information using ISO 8601 format and is always in UTC time.
 
-type: unsigned long
+    - name: created
+      level: custom
+      type: date
+      description: >
+        Date and time of when the device was registered in the domain. 
 
-description: Physical memory of the host machine in bytes.
+    - name: distinguished_name
+      level: custom
+      type: keyword
+      example: CN=foo, CN=computers, DC=acme, DC=company, DC=edu
+      normalized: array
+      description: >
+        Distinguished name of the host.
 
-example: 17,179,869,184 | Extract text following ":" from "Computer Memory : 195073 MB"
+    - name: modified
+      level: custom
+      type: date
+      description: >
+        Date the host's details were last modified.
 
-The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. 
+    - name: bios.manufacturer
+      level: custom
+      type: keyword
+      example: dell inc.
+      description: > 
+        This is a string representing the system manufacturer of the host.
 
-Normalize to byte value by multiplying base value by unit type as follows 
+    - name: bios.release_date
+      level: custom
+      type: date
+      description: >
+        The bios release date.
 
+    - name: bios.secure_boot_enabled
+      level: custom
+      type: boolean
+      description: >
+        Indicator that Secure Boot is enabled on the computer.
 
+    - name: bios.uuid
+      level: custom
+      type: keyword
+      example: 4C4C4544-0056-5010-805A-CAC04F475132
+      description: >
+        A unique identifier assigned to the computer mother board.
 
-B	(2^0)    1
-KB	(2^10)  1024
-MB	(2^20)  1,048,576
-GB	(2^30)  1,073,741,824
-TB	(2^40)  1,099,511,627,776
- | Detects specific baselines of physical configuration for asset management.
+    - name: bios.version
+      level: custom
+      type: keyword
+      example: 1.6.13
+      description: >
+        Version of the BIOS. This string is created by the BIOS manufacturer.
 
- | Can be used to indicate the risk associated with a particular host
-risk.calculated_score_norm | float | 88.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100 | Can be used to indicate the risk associated with a particular host
-risk.static_score | float | 830.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
-risk.static_score_norm | float | 83.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100 | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
-risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
-risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+    - name: cpu.architecture
+      level: custom
+      type: keyword
+      example: "x64: x86_64"
+      description: >
+        The CPU architecture and raw string of the CPU provided by the OS.
+    
+    - name: cpu.core.count
+      level: custom
+      type: integer
+      example: 10
+      description: >
+        Number of physical cores per CPU on host machine.
+
+    - name: cpu.count
+      level: custom
+      type: integer
+      example: 2
+      description: >
+        Number of CPUs on host machine.
+
+    - name: cpu.logical_processor.count
+      level: custom
+      type: integer
+      example: 40
+      description: >
+        Number of logical processors per CPU on host machine (physical cores multiplied by threads per core).
+
+    - name: cpu.manufacturer
+      level: custom
+      type: keyword
+      example: Intel
+      description: >
+        Manufacturer of CPU.
+
+    - name: cpu.name
+      level: custom
+      type: keyword
+      example: intel(r) core(tm) i3-2370m cpu
+      description: >
+        The full name of the cpu model.
+    
+    - name: cpu.speed
+      level: custom
+      type: float
+      example: 2.21
+      description: >
+        Float type defining the speed of the CPU in GHZ with null and blank values stored as -1.0 and -2.0 respectively.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
