@@ -1,4 +1,4 @@
-# 0000: Name of RFC
+# 0000: Host Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -17,9 +17,7 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 SchemaONE extends the ECS host field set in several ways:
 
 - The SchemaONE host field set supports additional host bios fields.
-
 - The SchemaONE host field set supports additional host cpu fields.
-
 - The SchemaONE host field set supports additional fields describing a supplemental details that the host can generate.
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -29,7 +27,7 @@ Stage 1: If the changes include field additions or modifications, please create 
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
 -->
 ## Fields
-<details><summary>Defintion</summary>
+<details><summary>Definitions</summary>
 <p>
 
 <!--
@@ -181,6 +179,47 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
+ ### `memory`
+ Detects specific baselines of physical configuration for asset management.
+ 
+ ### `last_logon.time`
+ Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.
+ 
+ ### `created`
+ Indicates that device is known to domain.
+ 
+ ### `distinguished_name`
+ The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.
+ 
+ ### `modified`
+ Indicates when information has changed for the host in a directory service.
+ 
+ ### `bios.manufacturer`
+ This is a string representing the system manufacturer of the host. Useful for supply chain issue detection.
+ 
+ ### `bios.release_date`
+ The bios release date. Useful for supply chain issue detection.
+ 
+ ### `bios.secure_boot_enabled`
+ Used to detect misconfiguration in Secure Boot.
+ 
+ ### `bios.uuid`
+ A unique identifier assigned to the computer mother board.
+ 
+ ### `bios.version`
+ Version of the BIOS, this string is created by the BIOS manufacturer. Useful for supply chain issue detection.
+ 
+ ### `cpu.architecture`
+ Detects out of date CPUs.
+ 
+ ### `cpu.core.count`, `cpu.count`, `cpu.logical_processor.count`
+ Detects specific baselines of physical configuration for asset management.
+ 
+ ### `cpu.manufacturer`, `cpu.name`
+ Useful for supply chain issue detection.
+ 
+ ### `cpu.speed`
+ Detects specific baselines of physical configuration for asset management.
 
 ## Source data
 
@@ -205,13 +244,19 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
+ * Ingestion mechanisms (e.g. beats/logstash)
+     - one
+ * Usage mechanisms (e.g. Kibana applications, detections)
+     - one
+ * ECS project (e.g. docs, tooling)
+     - one
 
 ## Concerns
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-
+Within the SchemaONE schema, the term manufacturer is used while in Elastic Common Schema the appropriate equivalent could be viewed as vendor which may lead to confusion.
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -224,7 +269,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @williamsisiahk | Author, Sponsor
+* @schema1ecs     | Subject Matter Expert
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
